@@ -1,0 +1,31 @@
+﻿@model Curso.ITDeveloper.Domain.Models.EstadoPaciente
+
+@{
+    ViewData["Title"] = "Detalhes de Estado do Paciente";
+}
+
+<div class="panel panel-info panel-controls">
+    <div class="panel panel-heading">
+        <h3>Detalhes de Estado do Paciente</h3>
+    </div>
+
+    <div class="panel panel-body">
+
+        <div>
+            <h4>EstadoPaciente</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Descricao)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Editar</a> 
+            <a asp-controller="EstadoPaciente" asp-action="Index" class="btn btn-info">Voltar a Lista</a>
+        </div>
+    </div>
+</div>
