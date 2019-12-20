@@ -1,5 +1,8 @@
 ﻿using Curso.ITDeveloper.Data.ORM;
 using Curso.ITDeveloper.Mvc.Data;
+using KissLog;
+using KissLog.Apis.v1.Listeners;
+using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +25,11 @@ namespace Curso.ITDeveloper.Mvc
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // register dependencies
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddScoped((context) => Logger.Factory.Get());
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -67,6 +75,14 @@ namespace Curso.ITDeveloper.Mvc
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // make sure it is added after app.UseStaticFiles() and app.UseSession(), and before app.UseMvc()
+            app.UseKissLogMiddleware(options => {
+                options.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
+                    Configuration["KissLog.OrganizationId"],
+                    Configuration["KissLog.ApplicationId"])
+                ));
+            });
 
             app.UseEndpoints(endpoints =>
             {
