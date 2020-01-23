@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Curso.ITDeveloper.Domain.Entities;
+﻿using Curso.ITDeveloper.Domain.Entities;
 using Curso.ITDeveloper.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Curso.ITDeveloper.Data.ORM
 {
@@ -20,7 +20,6 @@ namespace Curso.ITDeveloper.Data.ORM
 
         //Gerar tabela EstadoPaciente no BD
         public DbSet<EstadoPaciente> EstadoPaciente { get; set; }
-        public DbSet<MovimentoPaciente> MovimentoPaciente { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using Curso.ITDeveloper.Mvc.Extensions.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace Curso.ITDeveloper.Mvc.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -46,6 +45,24 @@ namespace Curso.ITDeveloper.Mvc.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [PersonalData]
+            [StringLength(maximumLength: 35, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres",
+                MinimumLength = 2)]
+            public string Apelido { get; set; }
+
+            [PersonalData]
+            [Display(Name = "Nome Completo")]
+            [Required(ErrorMessage = "O campo {0} e obrigatorio")]
+            [StringLength(maximumLength: 80, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres",
+                MinimumLength = 2)]
+            public string NomeCompleto { get; set; }
+
+            [PersonalData]
+            [Required(ErrorMessage = "O campo {0} e obrigatorio")]
+            [DataType(DataType.Date)]
+            [Display(Name = "Data de Nascimento")]
+            public DateTime DataNascimento { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -65,7 +82,10 @@ namespace Curso.ITDeveloper.Mvc.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 Email = email,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Apelido = user.Apelido,
+                NomeCompleto = user.NomeCompleto,
+                DataNascimento = user.DataNascimento
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -106,6 +126,19 @@ namespace Curso.ITDeveloper.Mvc.Areas.Identity.Pages.Account.Manage
                     var userId = await _userManager.GetUserIdAsync(user);
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
+            }
+
+            if (Input.Apelido != user.Apelido)
+            {
+                user.Apelido = Input.Apelido;
+            }
+            if (Input.NomeCompleto != user.NormalizedEmail)
+            {
+                user.NomeCompleto = Input.NomeCompleto;
+            }
+            if (Input.DataNascimento != user.DataNascimento)
+            {
+                user.DataNascimento = Input.DataNascimento;
             }
 
             await _signInManager.RefreshSignInAsync(user);

@@ -15,7 +15,7 @@ namespace Curso.ITDeveloper.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -61,17 +61,6 @@ namespace Curso.ITDeveloper.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EstadoPaciente");
-                });
-
-            modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.MovimentoPaciente", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MovimentoPaciente");
                 });
 
             modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.Paciente", b =>

@@ -1,4 +1,5 @@
 ﻿using Curso.ITDeveloper.Mvc.Configuration;
+using Curso.ITDeveloper.Mvc.Extensions.Identity.Services;
 using KissLog.Apis.v1.Listeners;
 using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +35,7 @@ namespace Curso.ITDeveloper.Mvc
             services.AddDbContextConfig(Configuration); // In DbContextConfig
             services.AddIdentityConfig(Configuration); // In IdentityConfig
             services.AddMvcAndRazor(); // In MvcAndRazorConfig
-            services.AddDependencyInjectionConfig(); // In DependencyInjectionConfig
+            services.AddDependencyInjectionConfig(Configuration); // In DependencyInjectionConfig
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -68,6 +69,12 @@ namespace Curso.ITDeveloper.Mvc
                     ));
                 });
             }
+
+            var authMsgSenderOpt = new AuthMessageSenderOptions
+            {
+                SendGridUser = Configuration["SendGridUser"],
+                SendGridKey = Configuration["SendGridKey"]
+            };
             
             app.UseEndpoints(endpoints =>
             {

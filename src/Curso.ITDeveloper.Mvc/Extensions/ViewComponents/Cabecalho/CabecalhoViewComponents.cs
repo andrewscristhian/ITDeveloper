@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Curso.ITDeveloper.Mvc.ViewComponents.CabecalhoModulos
 {
     [ViewComponent(Name = "Cabecalho")]
-    public class CabecalhoModulosViewComponents : ViewComponent
+    public class CabecalhoViewComponents : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync(string titulo, string subtitulo)
         {

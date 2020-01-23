@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Curso.ITDeveloper.Data.Migrations
 {
     [DbContext(typeof(ITDeveloperDbContext))]
-    [Migration("20191126034454_AddMappingEstadoPacienteEPacienteMapApplyAll")]
-    partial class AddMappingEstadoPacienteEPacienteMapApplyAll
+    [Migration("20200121185922_RefazendoMigrationHistory")]
+    partial class RefazendoMigrationHistory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -25,21 +25,23 @@ namespace Curso.ITDeveloper.Data.Migrations
                 {
                     b.Property<int>("MuralId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Autor")
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(90)");
 
                     b.Property<string>("Aviso")
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(90)");
 
-                    b.Property<DateTime>("Data");
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(90)");
 
                     b.Property<string>("Titulo")
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("varchar(90)");
 
                     b.HasKey("MuralId");
 
@@ -49,7 +51,8 @@ namespace Curso.ITDeveloper.Data.Migrations
             modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.EstadoPaciente", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -62,22 +65,14 @@ namespace Curso.ITDeveloper.Data.Migrations
                     b.ToTable("EstadoPaciente");
                 });
 
-            modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.MovimentoPaciente", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MovimentoPaciente");
-                });
-
             modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.Paciente", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Ativo");
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Cpf")
                         .HasColumnName("Cpf")
@@ -85,15 +80,18 @@ namespace Curso.ITDeveloper.Data.Migrations
                         .IsFixedLength(true)
                         .HasMaxLength(11);
 
-                    b.Property<DateTime>("DataInternacao");
+                    b.Property<DateTime>("DataInternacao")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataNascimento");
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnName("Email")
                         .HasColumnType("varchar(150)");
 
-                    b.Property<Guid>("EstadoPacienteId");
+                    b.Property<Guid>("EstadoPacienteId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -105,15 +103,18 @@ namespace Curso.ITDeveloper.Data.Migrations
                         .HasColumnType("varchar(15)")
                         .HasMaxLength(15);
 
-                    b.Property<DateTime>("RgDataEmissao");
+                    b.Property<DateTime>("RgDataEmissao")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("RgOrgao")
                         .HasColumnName("RgOrgao")
                         .HasColumnType("varchar(10)");
 
-                    b.Property<int>("Sexo");
+                    b.Property<int>("Sexo")
+                        .HasColumnType("int");
 
-                    b.Property<int>("TipoPaciente");
+                    b.Property<int>("TipoPaciente")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -126,7 +127,8 @@ namespace Curso.ITDeveloper.Data.Migrations
                 {
                     b.HasOne("Curso.ITDeveloper.Domain.Models.EstadoPaciente", "EstadoPaciente")
                         .WithMany("Paciente")
-                        .HasForeignKey("EstadoPacienteId");
+                        .HasForeignKey("EstadoPacienteId")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
