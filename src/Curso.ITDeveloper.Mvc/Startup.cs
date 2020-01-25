@@ -1,9 +1,14 @@
-﻿using Curso.ITDeveloper.Mvc.Configuration;
+﻿using System;
+using Curso.ITDeveloper.Mvc.Configuration;
+using Curso.ITDeveloper.Mvc.Data;
+using Curso.ITDeveloper.Mvc.Extensions.Identity;
 using Curso.ITDeveloper.Mvc.Extensions.Identity.Services;
+using Curso.ITDeveloper.Mvc.Identity.Services;
 using KissLog.Apis.v1.Listeners;
 using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,7 +43,9 @@ namespace Curso.ITDeveloper.Mvc
             services.AddDependencyInjectionConfig(Configuration); // In DependencyInjectionConfig
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -75,7 +82,9 @@ namespace Curso.ITDeveloper.Mvc
                 SendGridUser = Configuration["SendGridUser"],
                 SendGridKey = Configuration["SendGridKey"]
             };
-            
+
+            DefaultUserRoles.Seed(context, userManager, roleManager).Wait();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

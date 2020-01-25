@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1.Data", "4.1.Data", "{68
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.ITDeveloper.Data", "src\Curso.ITDeveloper.Data\Curso.ITDeveloper.Data.csproj", "{10359619-C145-4C4D-977D-318FD75ECAA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curso.ITDeveloper.DomainCore", "src\Curso.ITDeveloper.DomainCore\Curso.ITDeveloper.DomainCore.csproj", "{AF4CA91D-CAA7-43B6-B952-7024A79F5AC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curso.ITDeveloper.DomainCore", "src\Curso.ITDeveloper.DomainCore\Curso.ITDeveloper.DomainCore.csproj", "{AF4CA91D-CAA7-43B6-B952-7024A79F5AC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
