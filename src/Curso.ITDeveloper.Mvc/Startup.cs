@@ -1,9 +1,7 @@
-﻿using System;
-using Curso.ITDeveloper.Mvc.Configuration;
+﻿using Curso.ITDeveloper.Mvc.Configuration;
 using Curso.ITDeveloper.Mvc.Data;
 using Curso.ITDeveloper.Mvc.Extensions.Identity;
 using Curso.ITDeveloper.Mvc.Extensions.Identity.Services;
-using Curso.ITDeveloper.Mvc.Identity.Services;
 using KissLog.Apis.v1.Listeners;
 using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -24,7 +22,7 @@ namespace Curso.ITDeveloper.Mvc
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true,true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
             if (env.IsProduction())
@@ -82,8 +80,6 @@ namespace Curso.ITDeveloper.Mvc
                 SendGridUser = Configuration["SendGridUser"],
                 SendGridKey = Configuration["SendGridKey"]
             };
-
-            DefaultUserRoles.Seed(context, userManager, roleManager).Wait();
 
             app.UseEndpoints(endpoints =>
             {

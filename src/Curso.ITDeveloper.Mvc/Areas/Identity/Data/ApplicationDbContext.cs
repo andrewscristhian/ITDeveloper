@@ -1,4 +1,5 @@
-﻿using Curso.ITDeveloper.Mvc.Extensions.Identity;
+﻿using Curso.ITDeveloper.Mvc.Extensions.ExtensionsMethods;
+using Curso.ITDeveloper.Mvc.Extensions.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +14,9 @@ namespace Curso.ITDeveloper.Mvc.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            ModelBuilderExtension.AddUserAndRole(builder);
+
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
         }
     }
 }

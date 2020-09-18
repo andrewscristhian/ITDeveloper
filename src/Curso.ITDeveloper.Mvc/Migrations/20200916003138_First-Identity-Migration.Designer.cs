@@ -4,14 +4,16 @@ using Curso.ITDeveloper.Mvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Curso.ITDeveloper.Mvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200916003138_First-Identity-Migration")]
+    partial class FirstIdentityMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,27 +96,6 @@ namespace Curso.ITDeveloper.Mvc.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "BA59D53A-32CE-435B-A964-23D0414D115B",
-                            AccessFailedCount = 0,
-                            Apelido = "Andrews",
-                            ConcurrencyStamp = "7c1fcbe2-48a7-45d8-97eb-d99626489363",
-                            DataNascimento = new DateTime(2020, 9, 17, 23, 33, 4, 10, DateTimeKind.Local).AddTicks(2019),
-                            Email = "andrewsfogo@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NomeCompleto = "Andrews Cristhian",
-                            NormalizedEmail = "ANDREWSFOGO@GMAIL.COM",
-                            NormalizedUserName = "ANDREWSFOGO@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAiM8ZcJ0QV1mg9s0KL4/6aAupcN23323U+Qw6tCu/4G0RszrDPm8BkCjWp7S1Xtbg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f9413cf7-bade-4a4f-89fd-ce75143c4724",
-                            TwoFactorEnabled = false,
-                            UserName = "andrewsfogo@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -142,15 +123,6 @@ namespace Curso.ITDeveloper.Mvc.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "B8741F07-94B4-484A-B561-D3EFE1451915",
-                            ConcurrencyStamp = "eda2a633-2422-4392-8cdc-c6568fa2aee5",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -238,13 +210,6 @@ namespace Curso.ITDeveloper.Mvc.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "BA59D53A-32CE-435B-A964-23D0414D115B",
-                            RoleId = "B8741F07-94B4-484A-B561-D3EFE1451915"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

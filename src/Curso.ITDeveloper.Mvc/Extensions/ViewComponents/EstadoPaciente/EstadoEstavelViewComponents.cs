@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Curso.ITDeveloper.Data.ORM;
+﻿using Curso.ITDeveloper.Data.ORM;
 using Curso.ITDeveloper.Mvc.ViewComponents.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Curso.ITDeveloper.Mvc.Extensions.ViewComponents.EstadoPaciente
 {
@@ -19,7 +19,10 @@ namespace Curso.ITDeveloper.Mvc.Extensions.ViewComponents.EstadoPaciente
             var totalGeral = Util.TotReg(_context);
             decimal totalEstado = Util.GetNumRegEstado(_context, "Estavel");
 
-            decimal progress = totalEstado * 100 / totalGeral;
+            decimal progress = 0;
+
+            if (totalGeral != 0) progress = totalEstado * 100 / totalGeral;
+
             var prct = progress.ToString("F1");
 
             var model = new ContadorEstadoPaciente()

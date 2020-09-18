@@ -32,7 +32,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\bundle\" />
     <Folder Include="wwwroot\Content\cooperchip\" />
     <Folder Include="wwwroot\Content\css\" />

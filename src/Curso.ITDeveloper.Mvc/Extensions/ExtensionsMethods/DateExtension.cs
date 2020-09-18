@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace Curso.ITDeveloper.Mvc.Extensions.ExtensionsMethods
 {
-    public static class DataExtension
+    public static class DateExtension
     {
         //Em vez de usar o ToString para formatacao de data para formato Brasil, usar essas classes
         public static string ToBrazilianDate(this DateTime valor)

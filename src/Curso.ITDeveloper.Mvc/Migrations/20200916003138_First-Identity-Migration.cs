@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Curso.ITDeveloper.Mvc.Migrations
 {
-    public partial class ReestruturandoDbIdentity : Migration
+    public partial class FirstIdentityMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
