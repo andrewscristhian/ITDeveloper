@@ -1,5 +1,4 @@
-﻿using Curso.ITDeveloper.Mvc.Extensions.ExtensionsMethods;
-using Curso.ITDeveloper.Mvc.Extensions.Identity;
+﻿using Curso.ITDeveloper.Mvc.Extensions.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +13,9 @@ namespace Curso.ITDeveloper.Mvc.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            ModelBuilderExtension.AddUserAndRole(builder);
+            //builder.AddUserAndRole();
+            //builder.AddGenericos();
+            //builder.AddCid();
 
             base.OnModelCreating(builder);
         }

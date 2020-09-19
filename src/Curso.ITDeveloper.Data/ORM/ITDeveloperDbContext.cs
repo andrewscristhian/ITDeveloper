@@ -20,6 +20,8 @@ namespace Curso.ITDeveloper.Data.ORM
 
         //Gerar tabela EstadoPaciente no BD
         public DbSet<EstadoPaciente> EstadoPaciente { get; set; }
+        public DbSet<Generico> Generico { get; set; }
+        public DbSet<Cid> Cid { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
