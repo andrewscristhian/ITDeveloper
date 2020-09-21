@@ -41,25 +41,24 @@
                             {
 
 
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Codigo)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Nome)
-                                    </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
 
-                                    <td class="text-center">
+                    <td class="text-center">
 
-                                        <button class="btn btn-default details" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Detalhes de Genérico" data-original-title="Detalhes de Genérico"><i class="glyphicon glyphicon-file"></i></button>
+                        <button class="btn btn-default details" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Detalhes de Genérico" data-original-title="Detalhes de Genérico"><i class="glyphicon glyphicon-file"></i></button>
 
-                                        <button class="btn btn-danger delete" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Excluir Genérico" data-original-title="Excluir Genérico"><i class="glyphicon glyphicon-trash"></i></button>
+                        <button class="btn btn-danger delete" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Excluir Genérico" data-original-title="Excluir Genérico"><i class="glyphicon glyphicon-trash"></i></button>
 
-                                        <button class="btn btn-primary edit" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Editar Genérico" data-original-title="Editar Genérico"><i class="glyphicon glyphicon-edit"></i></button>
+                        <button class="btn btn-primary edit" data-id="@item.Id" data-toggle="tooltip" data-placement="bottom" title="Editar Genérico" data-original-title="Editar Genérico"><i class="glyphicon glyphicon-edit"></i></button>
 
-                                    </td>
-                                </tr>
-                            }
+                    </td>
+                </tr>}
                         </tbody>
 
                         <tfoot>

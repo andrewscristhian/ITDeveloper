@@ -5,12 +5,14 @@
     ViewData["Title"] = "Lista de Pacientes";
 }
 
-<vc:cabecalho titulo="Medical Management-Sys / Modulo Pacientes"
+<vc:cabecalho titulo="Medical Management-Sys / Módulo Pacientes"
               subtitulo="Administração de Pacientes"></vc:cabecalho>
 
-<partial name="PartialViews/_estado_paciente" />
+@*@await Component.InvokeAsync("Cabecalho", new { Titulo = "", Subtitulo = "" })*@
 
-<div class="panel panel-info panel-controls">
+@*<partial name="PartialViews/_estado_paciente" />*@
+
+<div class="panel panel-default panel-controls">
     <div class="panel panel-heading">
         <h3>Lista de Pacientes</h3>
     </div>
@@ -20,7 +22,9 @@
             <a asp-controller="Paciente" asp-action="Create" class="btn btn-primary">Novo Paciente</a>
         </p>
 
-        <table class="table table-bordered table-hover">
+        @*<table-grid Items="@Model"></table-grid>*@
+
+        <table class="table table-bordered table-hover myTable" id="ccc">
             <thead class="dark">
                 <tr>
 
@@ -30,9 +34,11 @@
                     <th>
                         @Html.DisplayNameFor(model => model.DataNascimento)
                     </th>
+
                     <th>
                         @Html.DisplayNameFor(model => model.Ativo)
                     </th>
+
                     <th>
                         @Html.DisplayNameFor(model => model.TipoPaciente)
                     </th>
@@ -40,10 +46,10 @@
                         @Html.DisplayNameFor(model => model.Sexo)
                     </th>
 
-
                     <th>
                         @Html.DisplayNameFor(model => model.EstadoPaciente.Descricao)
                     </th>
+
                     <th>Ação</th>
 
                 </tr>
@@ -52,36 +58,57 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    var dataNascPtBr = item.DataNascimento.ToBrazilianDate();
-                    var dateTimeNascPtBr = item.DataNascimento.ToBrazilianDateTime();
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @dateTimeNascPtBr
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TipoPaciente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Sexo)
-                        </td>
+                    //var dataNascPtBr = item.DataNascimento.ToBrazilianDate();
+                    var dateTimeNascPtBr = item.DataNascimento.ToBrazilianDate();
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @dateTimeNascPtBr
+        </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EstadoPaciente.Descricao)
-                        </td>
-                        <td class="text-right">
-                            <a asp-controller="Paciente" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-square fa-2x" title="Editar Paciente"></span> </a>
-                            <a asp-controller="Paciente" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-search fa-2x" title="Detalhes Paciente"></span> </a>
-                            <a asp-controller="Paciente" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash fa-2x" title="Excluir Paciente"></span> </a>
-                        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
 
-                    </tr>
-                }
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoPaciente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sexo)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoPaciente.Descricao)
+        </td>
+
+        <td class="text-right">
+            <a asp-controller="Paciente" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-square fa-2x" title="Editar Paciente"></span> </a>
+            <a asp-controller="Paciente" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-search fa-2x" title="Detalhes Paciente"></span> </a>
+            <a asp-controller="Paciente" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash fa-2x" title="Excluir Paciente"></span> </a>
+        </td>
+
+    </tr>}
             </tbody>
         </table>
 
     </div>
 </div>
 
+
+@section Scripts {
+
+    @* Bundle  dataTable *@
+    <script src="/bundle/dataTables.min.js"></script>
+
+    <script>$(document).ready(function () {
+            $('.myTable').DataTable({
+                dom: 'T<"clear">lfrtip',
+                tableTools: {
+                    "sSwfPath": "/myPlugins/copy_csv_xls_pdf.swf"
+                }
+            });
+        });</script>
+
+}

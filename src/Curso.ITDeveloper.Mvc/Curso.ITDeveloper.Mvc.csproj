@@ -6,6 +6,13 @@
     <UserSecretsId>08edc2fa-b68a-494c-b051-167b66052ac7</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\output\**" />
+    <Content Remove="wwwroot\output\**" />
+    <EmbeddedResource Remove="wwwroot\output\**" />
+    <None Remove="wwwroot\output\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="KissLog.AspNetCore" Version="2.5.5" />
@@ -40,7 +47,6 @@
     <Folder Include="wwwroot\css\curso\" />
     <Folder Include="wwwroot\images\boxiesinit\" />
     <Folder Include="wwwroot\images\portais\" />
-    <Folder Include="wwwroot\output\" />
     <Folder Include="wwwroot\Scripts\cooperchip\boxinit\" />
     <Folder Include="wwwroot\Scripts\cooperchip\boxinit\css\" />
     <Folder Include="wwwroot\Scripts\cooperchip\componentes\ashobiz\css\others\" />
