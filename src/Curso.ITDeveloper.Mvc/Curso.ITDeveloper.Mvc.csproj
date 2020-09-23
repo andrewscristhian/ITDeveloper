@@ -34,6 +34,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\Curso.ITDeveloper.Application\Curso.ITDeveloper.Application.csproj" />
     <ProjectReference Include="..\Curso.ITDeveloper.Data\Curso.ITDeveloper.Data.csproj" />
   </ItemGroup>
 
