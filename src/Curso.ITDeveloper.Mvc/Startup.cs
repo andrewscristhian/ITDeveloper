@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text;
 
 namespace Curso.ITDeveloper.Mvc
 {
@@ -19,7 +20,7 @@ namespace Curso.ITDeveloper.Mvc
 
         public Startup(IWebHostEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
+            var builer = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
@@ -27,22 +28,27 @@ namespace Curso.ITDeveloper.Mvc
 
             if (env.IsProduction())
             {
-                builder.AddUserSecrets<Startup>();
+                builer.AddUserSecrets<Startup>();
             }
 
-            Configuration = builder.Build();
+            Configuration = builer.Build();
+
         }
+
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextConfig(Configuration); // In DbContextConfig
             services.AddIdentityConfig(Configuration); // In IdentityConfig
-            services.AddMvcAndRazor(); // In MvcAndRazorConfig
-            services.AddDependencyInjectionConfig(Configuration); // In DependencyInjectionConfig
+            services.AddMvcAndRazor(); // In MvcAndRazor
+            services.AddDependencyInjectionConfig(Configuration); // In DependencyInjectConfig
+            // Prover Suporte para Code Page (1252) (windows-1252)
+            services.AddCodePageProviderNotSupportedInDotNetCoreForAnsi();
+
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
@@ -75,11 +81,16 @@ namespace Curso.ITDeveloper.Mvc
                 });
             }
 
+
             var authMsgSenderOpt = new AuthMessageSenderOptions
             {
                 SendGridUser = Configuration["SendGridUser"],
                 SendGridKey = Configuration["SendGridKey"]
             };
+
+            //CriaUsersAndRoles.Seed(context, userManager, roleManager).Wait();
+            //app.UseMiddleware<DefaultUsersAndRolesMiddeware>();            
+            //app.UseAddUserAndRoles();
 
             app.UseEndpoints(endpoints =>
             {
@@ -90,6 +101,7 @@ namespace Curso.ITDeveloper.Mvc
                 endpoints.MapRazorPages();
 
             });
+
         }
     }
 }
