@@ -60,36 +60,37 @@
                 {
                     //var dataNascPtBr = item.DataNascimento.ToBrazilianDate();
                     var dateTimeNascPtBr = item.DataNascimento.ToBrazilianDate();
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @dateTimeNascPtBr
-        </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @dateTimeNascPtBr
+                        </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ativo)
+                        </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoPaciente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sexo)
-        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoPaciente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sexo)
+                        </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoPaciente.Descricao)
-        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EstadoPaciente.Descricao)
+                        </td>
 
-        <td class="text-right">
-            <a asp-controller="Paciente" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-square fa-2x" title="Editar Paciente"></span> </a>
-            <a asp-controller="Paciente" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-search fa-2x" title="Detalhes Paciente"></span> </a>
-            <a asp-controller="Paciente" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash fa-2x" title="Excluir Paciente"></span> </a>
-        </td>
+                        <td class="text-right">
+                            <a asp-controller="Paciente" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-square fa-2x" title="Editar Paciente"></span> </a>
+                            <a asp-controller="Paciente" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-search fa-2x" title="Detalhes Paciente"></span> </a>
+                            <a asp-controller="Paciente" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash fa-2x" title="Excluir Paciente"></span> </a>
+                        </td>
 
-    </tr>}
+                    </tr>
+                }
             </tbody>
         </table>
 
@@ -102,7 +103,8 @@
     @* Bundle  dataTable *@
     <script src="/bundle/dataTables.min.js"></script>
 
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             $('.myTable').DataTable({
                 dom: 'T<"clear">lfrtip',
                 tableTools: {
@@ -111,4 +113,5 @@
             });
         });</script>
 
+    <script src="~/bundle/dashboard.min.js"></script>
 }
