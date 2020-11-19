@@ -1,12 +1,13 @@
-﻿
+﻿using Curso.ITDeveloper.Domain.Interfaces;
 using Curso.ITDeveloper.Mvc.Models;
 using Curso.ITDeveloper.Mvc.ViewModels;
+using KissLog;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using KissLog;
 
 namespace Curso.ITDeveloper.Mvc.Controllers
 {
@@ -17,11 +18,18 @@ namespace Curso.ITDeveloper.Mvc.Controllers
     {
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly IUserInContext _user;
+        private readonly IUserInAllLayer _userInAllLayer;
 
-        public HomeController(IEmailSender emailSender, ILogger logger)
+        public HomeController(IEmailSender emailSender,
+                              ILogger logger,
+                              IUserInContext user,
+                              IUserInAllLayer userInAllLayer)
         {
             _emailSender = emailSender;
             _logger = logger;
+            this._user = user;
+            this._userInAllLayer = userInAllLayer;
         }
 
         [Route("")]
@@ -31,10 +39,48 @@ namespace Curso.ITDeveloper.Mvc.Controllers
             return View();
         }
 
+
+        //[Authorize(Roles = "Admin")]
         [Route("dashboard")]
         [Route("pagina-de-estatistica")]
         public IActionResult Dashboard()
         {
+
+            var email = "";
+
+            //if (User.Identity.IsAuthenticated) { }
+            // posso fazer assim também, com o Return aqui  
+            // e sem o _user (neste projeto)}
+
+            IDictionary<string, string> minhasClaims = new Dictionary<string, string>();
+
+            if (_user.IsAuthenticated())
+            {
+                // Posso pegar a Claim Com Type Apelido assim, sem método de extensão
+                // Esse 'Apelido' em hard-code aqui está totalmente fora de questão
+                // Sem contar que se eu NÃO puder usar os mesmos métodos em qualquer lugar
+                // fere o princípio DRY (Don't Repeat yourself) - Não se repita.
+                var apelido = User.FindFirst(x => x.Type == "Apelido")?.Value;
+                email = User.FindFirst(e => e.Type == "Email")?.Value;
+
+                minhasClaims.Add("Apelido", _user.GetUserApelido());
+                minhasClaims.Add("Nome Completo", _user.GetUserNomeCompleto());
+                minhasClaims.Add("Imagem do Perfil", _user.GetUserImgProfilePath());
+                minhasClaims.Add("Id", _user.GetUserId().ToString());
+                minhasClaims.Add("Nome", _user.Name);
+                minhasClaims.Add("Email", _user.GetUserEmail());
+                minhasClaims.Add("E Administrador", _user.IsInRole("Admin") ? "SIM" : "NÃO");
+
+                var testeUserClaims = minhasClaims;
+                var testeDictionaryOfClaims = _userInAllLayer.DictionaryOfClaims();
+                var testeUserListClaims = _userInAllLayer.ListOfClaims();
+
+                var nome = minhasClaims["Nome"];
+                email = minhasClaims["Email"];
+                var EhAdministrador = minhasClaims["E Administrador"];
+
+            }
+
             return View();
         }
 
@@ -53,6 +99,7 @@ namespace Curso.ITDeveloper.Mvc.Controllers
         }
 
         [HttpGet("fale-conosco")]
+        //[Route("fale-conosco")]
         public IActionResult Contato()
         {
             return View();
@@ -72,12 +119,15 @@ namespace Curso.ITDeveloper.Mvc.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.Log(LogLevel.Error, $"Erro tentando enviar email: {e.Message}");
+                    _logger.Log(LogLevel.Error, $"Erro tntando enviar emal: {e.Message}");
                     throw;
                 }
             }
+
+
             return View();
         }
+
 
         [Route("privacidade")]
         [Route("politica-de-privacidade")]

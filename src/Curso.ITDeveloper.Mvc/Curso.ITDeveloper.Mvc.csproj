@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Curso.ITDeveloper.Application\Curso.ITDeveloper.Application.csproj" />
+    <ProjectReference Include="..\Curso.ITDeveloper.CrossCutting\Curso.ITDeveloper.CrossCutting.csproj" />
     <ProjectReference Include="..\Curso.ITDeveloper.Data\Curso.ITDeveloper.Data.csproj" />
   </ItemGroup>
 
@@ -55,6 +56,11 @@
     <Folder Include="wwwroot\Scripts\cooperchip\boxinit\css\" />
     <Folder Include="wwwroot\Scripts\cooperchip\componentes\ashobiz\css\others\" />
     <Folder Include="wwwroot\Scripts\cooperchip\componentes\ashobiz\less\others\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="Views\CodePage\Index.cshtml" />
   </ItemGroup>
 
 
