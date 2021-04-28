@@ -1,6 +1,8 @@
-﻿using Curso.ITDeveloper.CrossCutting.Auxiliar;
+﻿using Curso.ITDeveloper.Application.Repository;
+using Curso.ITDeveloper.CrossCutting.Auxiliar;
 using Curso.ITDeveloper.CrossCutting.Helpers;
 using Curso.ITDeveloper.Domain.Interfaces;
+using Curso.ITDeveloper.Domain.Interfaces.Repository;
 using Curso.ITDeveloper.Mvc.Extensions.Filter;
 using Curso.ITDeveloper.Mvc.Extensions.Identity;
 using Curso.ITDeveloper.Mvc.Extensions.Identity.Services;
@@ -18,6 +20,8 @@ namespace Curso.ITDeveloper.Mvc.Configuration
     {
         public static IServiceCollection AddDependencyInjectionConfig(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IPacienteRepository, PacienteRepository>();
+
             services.AddTransient<IUnitOfUpload, UnitOfUpload>();
 
             // =====/ Mantem o estado do contexto Http por toda a aplicação === //
