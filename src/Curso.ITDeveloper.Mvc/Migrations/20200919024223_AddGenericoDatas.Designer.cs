@@ -21,7 +21,7 @@ namespace Curso.ITDeveloper.Mvc.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.Generico", b =>
+            modelBuilder.Entity("Curso.ITDeveloper.Domain.Entities.Generico", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

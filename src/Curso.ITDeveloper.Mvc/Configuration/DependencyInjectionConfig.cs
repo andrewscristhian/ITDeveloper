@@ -1,6 +1,8 @@
-﻿using Curso.ITDeveloper.Application.Repository;
+﻿using Curso.ITDeveloper.Application.Interfaces;
+using Curso.ITDeveloper.Application.Services;
 using Curso.ITDeveloper.CrossCutting.Auxiliar;
 using Curso.ITDeveloper.CrossCutting.Helpers;
+using Curso.ITDeveloper.Data.Repository;
 using Curso.ITDeveloper.Domain.Interfaces;
 using Curso.ITDeveloper.Domain.Interfaces.Repository;
 using Curso.ITDeveloper.Mvc.Extensions.Filter;
@@ -20,7 +22,14 @@ namespace Curso.ITDeveloper.Mvc.Configuration
     {
         public static IServiceCollection AddDependencyInjectionConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IPacienteRepository, PacienteRepository>();
+            /* Application */
+            services.AddScoped<IServicoAplicacaoPaciente, ServicoAplicacaoPaciente>();
+
+            /* Domain => Service */
+
+            /* Domain => Repository */
+
+            services.AddScoped<IRepositoryPaciente, PacienteRepository>();
 
             services.AddTransient<IUnitOfUpload, UnitOfUpload>();
 

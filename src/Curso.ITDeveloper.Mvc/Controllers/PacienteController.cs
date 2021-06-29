@@ -1,5 +1,6 @@
-﻿using Curso.ITDeveloper.Domain.Interfaces.Repository;
-using Curso.ITDeveloper.Domain.Models;
+﻿using Curso.ITDeveloper.Application.Interfaces;
+using Curso.ITDeveloper.Domain.Entities;
+using Curso.ITDeveloper.Domain.Interfaces.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,125 +10,123 @@ using System.Threading.Tasks;
 
 namespace Curso.ITDeveloper.Mvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class PacienteController : Controller
     {
-        private readonly IPacienteRepository _repoPaciente;
+        private readonly IRepositoryPaciente _repoPaciente;
+        private readonly IServicoAplicacaoPaciente _serviceApp;
 
-        public PacienteController(IPacienteRepository repoPaciente)
+        public PacienteController(IServicoAplicacaoPaciente serviceApp,
+                                  IRepositoryPaciente repoPaciente)
         {
+            _serviceApp = serviceApp;
             _repoPaciente = repoPaciente;
         }
 
         // GET: Paciente
         public async Task<IActionResult> Index()
         {
-            //Listar Estado Paciente
-            return View(await _repoPaciente.ListaPacientesComEstado());
+            // TODO: Aqui, usando AutoMapper
+            return View(await _serviceApp.ObterPacientesComEstadoPacienteApplication());
+
+            // TODO: Aqui, escrevedo o mapper na mão!
+            //return View(await _serviceApp.ObterPacientesDePacienteViewModelApplication());
         }
 
-        // GET: Paciente/Details/5
+
         public async Task<IActionResult> Details(Guid id)
         {
-            if (id == null) return NotFound();
+            var paciente = await _serviceApp.ObterPacienteComEstadoPacienteApplication(id);
 
-            var paciente = await _repoPaciente.SelecionarPorId(id);
-
-            if (paciente == null) return NotFound();
+            if (paciente == null)
+            {
+                return NotFound();
+            }
 
             return View(paciente);
         }
 
-        public async Task<IActionResult> ReportPorEstadoPaciente(Guid? id)
+        public async Task<IActionResult> ReportForEstadoPaciente(Guid id)
         {
-            if (id.Value == null) return NotFound();
-
-            var pacientePorEstado = await _repoPaciente.ObterPacientesPorEstadoPaciente(id.Value);
+            var pacientePorEstado = await _serviceApp.ObterPacientesPorEstadoPacienteApplication(id);
 
             if (pacientePorEstado == null) return NotFound();
 
             return View(pacientePorEstado);
         }
 
-        // GET: Paciente/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.EstadoPaciente = new SelectList(_repoPaciente.ListaEstadoPaciente(), "Id", "Descricao");
+            ViewBag.EstadoPaciente = new SelectList(await _serviceApp.ListaEstadoPacienteApplication(), "Id", "Descricao");
             return View();
         }
 
-        // POST: Paciente/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Paciente paciente)
         {
             if (ModelState.IsValid)
             {
-                // paciente.Id = Guid.NewGuid(); // Não usar
-                await _repoPaciente.Inserir(paciente);
-                return RedirectToAction(nameof(Index));
+                await this._repoPaciente.Inserir(paciente);
+                return RedirectToAction("Index");
             }
-
-            ViewBag.EstadoPaciente = new SelectList(_repoPaciente.ListaEstadoPaciente(), "Id", "Descricao");
-
+            ViewBag.EstadoPaciente = new SelectList(await _serviceApp.ListaEstadoPacienteApplication(), "Id", "Descricao", paciente.EstadoPacienteId);
             return View(paciente);
         }
-
-        // GET: Paciente/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            if (id.Value == null) return NotFound();
-
-            var paciente = await _repoPaciente.SelecionarPorId(id.Value);
-
-            if (paciente == null) return NotFound();
-
-            ViewBag.EstadoPaciente = new SelectList(_repoPaciente.ListaEstadoPaciente(), "Id", "Descricao",
-                paciente.EstadoPacienteId);
-
+            var paciente = await _repoPaciente.SelecionarPorId(id);
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+            ViewBag.EstadoPaciente = new SelectList(await _serviceApp.ListaEstadoPacienteApplication(), "Id", "Descricao", paciente.EstadoPacienteId);
             return View(paciente);
         }
 
-        // POST: Paciente/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Paciente paciente)
         {
-            if (id != paciente.Id) return NotFound();
+            if (id != paciente.Id)
+            {
+                return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _repoPaciente.Atualizar(paciente);
+                    await this._repoPaciente.Atualizar(paciente);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PacienteExists(paciente.Id)) return NotFound();
-                    else throw;
+                    if (!PacienteExists(paciente.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewBag.EstadoPaciente = new SelectList(_repoPaciente.ListaEstadoPaciente(), "Id", "Descricao");
+            ViewBag.EstadoPaciente = new SelectList(await _serviceApp.ListaEstadoPacienteApplication(), "Id", "Descricao", paciente.EstadoPacienteId);
             return View(paciente);
         }
-
-        // GET: Paciente/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
-            if (id == null) return NotFound();
-
             var paciente = await _repoPaciente.ObterPacienteComEstadoPaciente(id);
 
-            if (paciente == null) return NotFound();
+            if (paciente == null)
+            {
+                return NotFound();
+            }
 
             return View(paciente);
         }
 
-        // POST: Paciente/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -136,7 +135,9 @@ namespace Curso.ITDeveloper.Mvc.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        private bool PacienteExists(Guid id) => _repoPaciente.TemPaciente(id);
+        private bool PacienteExists(Guid id)
+        {
+            return _serviceApp.TemPacienteApplication(id);
+        }
     }
 }

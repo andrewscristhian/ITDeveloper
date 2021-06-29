@@ -8,7 +8,7 @@ namespace Curso.ITDeveloper.Mvc.Controllers
 {
     public class CodePageController : Controller
     {
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             List<CodigoPagina> listaCodPage = new List<CodigoPagina>();
             foreach (EncodingInfo encInfo in Encoding.GetEncodings())

@@ -48,7 +48,7 @@ namespace Curso.ITDeveloper.Data.Migrations
                     b.ToTable("Mural");
                 });
 
-            modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.Cid", b =>
+            modelBuilder.Entity("Curso.ITDeveloper.Domain.Entities.Cid", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace Curso.ITDeveloper.Data.Migrations
                     b.ToTable("Cid");
                 });
 
-            modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.EstadoPaciente", b =>
+            modelBuilder.Entity("Curso.ITDeveloper.Domain.Entities.EstadoPaciente", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,7 +92,7 @@ namespace Curso.ITDeveloper.Data.Migrations
                     b.ToTable("EstadoPaciente");
                 });
 
-            modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.Generico", b =>
+            modelBuilder.Entity("Curso.ITDeveloper.Domain.Entities.Generico", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace Curso.ITDeveloper.Data.Migrations
                     b.ToTable("Generico");
                 });
 
-            modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.Paciente", b =>
+            modelBuilder.Entity("Curso.ITDeveloper.Domain.Entities.Paciente", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -167,9 +167,9 @@ namespace Curso.ITDeveloper.Data.Migrations
                     b.ToTable("Paciente");
                 });
 
-            modelBuilder.Entity("Curso.ITDeveloper.Domain.Models.Paciente", b =>
+            modelBuilder.Entity("Curso.ITDeveloper.Domain.Entities.Paciente", b =>
                 {
-                    b.HasOne("Curso.ITDeveloper.Domain.Models.EstadoPaciente", "EstadoPaciente")
+                    b.HasOne("Curso.ITDeveloper.Domain.Entities.EstadoPaciente", "EstadoPaciente")
                         .WithMany("Paciente")
                         .HasForeignKey("EstadoPacienteId")
                         .IsRequired();

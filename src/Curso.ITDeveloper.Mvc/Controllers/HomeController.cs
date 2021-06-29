@@ -1,6 +1,5 @@
-﻿using Curso.ITDeveloper.Domain.Interfaces;
-using Curso.ITDeveloper.Mvc.Models;
-using Curso.ITDeveloper.Mvc.ViewModels;
+﻿using Curso.ITDeveloper.Application.ViewModels;
+using Curso.ITDeveloper.Domain.Interfaces;
 using KissLog;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -93,7 +92,7 @@ namespace Curso.ITDeveloper.Mvc.Controllers
         [Route("quem-somos")]
         [Route("sobre-nos")]
         [Route("sobre/{id:guid}/{paciente}/{categoria?}")]
-        public IActionResult Sobre(Guid id, string paciente, string categoria)
+        public IActionResult Sobre()
         {
             return View();
         }
@@ -128,7 +127,6 @@ namespace Curso.ITDeveloper.Mvc.Controllers
             return View();
         }
 
-
         [Route("privacidade")]
         [Route("politica-de-privacidade")]
         public IActionResult Privacy()
@@ -143,6 +141,5 @@ namespace Curso.ITDeveloper.Mvc.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
     }
 }

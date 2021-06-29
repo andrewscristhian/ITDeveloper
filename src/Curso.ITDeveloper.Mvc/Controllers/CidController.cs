@@ -1,6 +1,6 @@
 ﻿using Curso.ITDeveloper.Application.Extensions;
 using Curso.ITDeveloper.Data.ORM;
-using Curso.ITDeveloper.Domain.Models;
+using Curso.ITDeveloper.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -80,7 +80,7 @@ namespace Curso.ITDeveloper.Mvc.Controllers
             int k = 0;
             string line;
 
-            List<Cid> cids = new List<Cid>();
+            List<Cid> cids = new();
             Encoding encodingPage = Encoding.GetEncoding(1252);
             bool detectEncoding = false;
 

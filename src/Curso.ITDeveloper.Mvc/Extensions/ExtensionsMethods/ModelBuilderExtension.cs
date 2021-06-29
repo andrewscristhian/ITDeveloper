@@ -1,4 +1,4 @@
-﻿using Curso.ITDeveloper.Domain.Models;
+﻿using Curso.ITDeveloper.Domain.Entities;
 using Curso.ITDeveloper.Mvc.Extensions.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

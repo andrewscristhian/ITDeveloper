@@ -1,4 +1,4 @@
-﻿using Curso.ITDeveloper.Domain.Models;
+﻿using Curso.ITDeveloper.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

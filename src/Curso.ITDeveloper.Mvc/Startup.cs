@@ -1,4 +1,5 @@
-﻿using Curso.ITDeveloper.Mvc.Configuration;
+﻿using Curso.ITDeveloper.Application.AutoMapper;
+using Curso.ITDeveloper.Mvc.Configuration;
 using Curso.ITDeveloper.Mvc.Data;
 using Curso.ITDeveloper.Mvc.Extensions.Identity;
 using Curso.ITDeveloper.Mvc.Extensions.Identity.Services;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Text;
 
 namespace Curso.ITDeveloper.Mvc
 {
@@ -38,13 +38,13 @@ namespace Curso.ITDeveloper.Mvc
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(AutoMapperConfig));
             services.AddDbContextConfig(Configuration); // In DbContextConfig
             services.AddIdentityConfig(Configuration); // In IdentityConfig
             services.AddMvcAndRazor(); // In MvcAndRazor
             services.AddDependencyInjectionConfig(Configuration); // In DependencyInjectConfig
             // Prover Suporte para Code Page (1252) (windows-1252)
             services.AddCodePageProviderNotSupportedInDotNetCoreForAnsi();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext context,
@@ -54,6 +54,7 @@ namespace Curso.ITDeveloper.Mvc
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {

@@ -1,4 +1,4 @@
-﻿@model Curso.ITDeveloper.Domain.Models.Paciente
+﻿@model Curso.ITDeveloper.Application.ViewModels.PacienteViewModel
 
 @{
     ViewData["Title"] = "Exclusao de Paciente";
@@ -23,3 +23,10 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+
+    @* Bundle  dataTable *@
+    <script src="/bundle/dataTables.min.js"></script>
+    <script src="~/bundle/dashboard.min.js"></script>
+}

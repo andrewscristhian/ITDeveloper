@@ -1,5 +1,5 @@
 ﻿using Curso.ITDeveloper.Data.ORM;
-using Curso.ITDeveloper.Domain.Models;
+using Curso.ITDeveloper.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;

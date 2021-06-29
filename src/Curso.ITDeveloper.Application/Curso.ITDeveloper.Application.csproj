@@ -1,17 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.8" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Curso.ITDeveloper.Data\Curso.ITDeveloper.Data.csproj" />
     <ProjectReference Include="..\Curso.ITDeveloper.Domain\Curso.ITDeveloper.Domain.csproj" />
-    <ProjectReference Include="..\Curso.ITDeveloper.Repository\Curso.ITDeveloper.Repository.csproj" />
   </ItemGroup>
 
 </Project>

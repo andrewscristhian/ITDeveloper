@@ -1,5 +1,5 @@
 ﻿using Curso.ITDeveloper.Data.ORM;
-using Curso.ITDeveloper.Domain.Models;
+using Curso.ITDeveloper.Domain.Entities;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;

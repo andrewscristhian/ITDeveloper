@@ -1,5 +1,5 @@
 ﻿@using Curso.ITDeveloper.Mvc.Extensions.ExtensionsMethods
-@model IEnumerable<Curso.ITDeveloper.Domain.Models.Paciente>
+@model IEnumerable<Curso.ITDeveloper.Application.ViewModels.PacienteViewModel>
 
 
 @{
@@ -51,7 +51,7 @@
                 @foreach (var item in Model)
                 {
                     //var dataNascPtBr = item.DataNascimento.ToBrazilianDate();
-                    var dateTimeNascPtBr = item.DataNascimento.ToBrazianDateTime();
+                    var dateTimeNascPtBr = item.DataNascimento.ToBrazilianDateTime();
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nome)
@@ -88,3 +88,10 @@
 
     </div>
 </div>
+
+@section Scripts {
+
+    @* Bundle  dataTable *@
+    <script src="/bundle/dataTables.min.js"></script>
+    <script src="~/bundle/dashboard.min.js"></script>
+}

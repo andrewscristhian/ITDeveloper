@@ -1,4 +1,4 @@
-﻿@model Curso.ITDeveloper.Domain.Models.Paciente
+﻿@model Curso.ITDeveloper.Application.ViewModels.PacienteViewModel
 
 @{
     ViewData["Title"] = "Editar Paciente";
@@ -35,4 +35,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @* Bundle  dataTable *@
+    <script src="/bundle/dataTables.min.js"></script>
+    <script src="~/bundle/dashboard.min.js"></script>
 }

@@ -13,6 +13,8 @@ namespace Curso.ITDeveloper.Mvc.Configuration
             services.AddDbContext<ITDeveloperDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultITDeveloper")));
 
+            services.AddDatabaseDeveloperPageExceptionFilter(); // Add 5.0
+
             return services;
         }
     }

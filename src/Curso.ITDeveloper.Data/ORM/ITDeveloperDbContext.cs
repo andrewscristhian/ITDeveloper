@@ -1,5 +1,5 @@
 ﻿using Curso.ITDeveloper.Domain.Entities;
-using Curso.ITDeveloper.Domain.Models;
+using Curso.ITDeveloper.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
